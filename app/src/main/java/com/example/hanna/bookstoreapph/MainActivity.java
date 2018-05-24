@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 BookEntry._ID,
                 BookEntry.COLUMN_PRODUCT_NAME,
                 BookEntry.COLUMN_PRICE,
+                BookEntry.COLUMN_QUANTITY,
                 BookEntry.COLUMN_SUPPLIER_NAME,
                 BookEntry.COLUMN_SUPPLIER_PHONE_NUMBER};
 
@@ -68,12 +69,13 @@ public class MainActivity extends AppCompatActivity {
                 projection,            // The columns to return
                 null,                  // The columns for the WHERE clause
                 null,                  // The values for the WHERE clause
-                null,                  // Don't group the rows
+                null,
+                null,                      // Don't group the rows
                 null,                  // Don't filter by row groups
                 null);                   // The sort order
 
 
-        TextView displayView = (TextView) findViewById(R.id.show_items_text_view);
+        TextView displayView = findViewById(R.id.show_items_text_view);
 
         try {
             // Create a header in the Text View
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             displayView.append(BookEntry._ID + " - " +
                     BookEntry.COLUMN_PRODUCT_NAME + " - " +
                     BookEntry.COLUMN_PRICE + " - " +
+                    BookEntry.COLUMN_QUANTITY + " - " +
                     BookEntry.COLUMN_SUPPLIER_NAME + " - " +
                     BookEntry.COLUMN_SUPPLIER_PHONE_NUMBER + "\n");
 
@@ -90,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
             int idColumnIndex = cursor.getColumnIndex(BookEntry._ID);
             int nameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRODUCT_NAME);
             int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRICE);
+            int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_QUANTITY);
             int supplierColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_NAME);
             int phoneColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_PHONE_NUMBER);
 
@@ -100,12 +104,14 @@ public class MainActivity extends AppCompatActivity {
                 int currentID = cursor.getInt(idColumnIndex);
                 String currentName = cursor.getString(nameColumnIndex);
                 int currentPrice = cursor.getInt(priceColumnIndex);
+                int currentQuantity = cursor.getInt(quantityColumnIndex);
                 String currentSupplier = cursor.getString(supplierColumnIndex);
                 int currentPhoneNumber = cursor.getInt(phoneColumnIndex);
                 // Display the values from each column of the current row in the cursor in the TextView
                 displayView.append(("\n" + currentID + " - " +
                         currentName + " - " +
                         currentPrice + " - " +
+                        currentQuantity + " - " +
                         currentSupplier + " - " +
                         currentPhoneNumber));
             }
@@ -128,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put(BookEntry.COLUMN_PRODUCT_NAME, "Gone with the wind");
         values.put(BookEntry.COLUMN_PRICE, 10);
+        values.put(BookEntry.COLUMN_QUANTITY, 2);
         values.put(BookEntry.COLUMN_SUPPLIER_NAME, "Best Supplier");
         values.put(BookEntry.COLUMN_SUPPLIER_PHONE_NUMBER, 76343535);
 
